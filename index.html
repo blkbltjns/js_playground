@@ -1,0 +1,18 @@
+<html>    
+    <body>    
+        Loading!!!
+        <script type="module">
+
+            import Program from './program.js';
+            import OuterElement from './outerElement.js';
+
+            let program = new Program();
+            program.takeOver();
+
+            let newOuterElement = document.createCustomElement(OuterElement);
+            document.body.innerHTML = '';
+            document.body.appendChild(newOuterElement);
+            
+        </script>
+    </body>
+</html>
