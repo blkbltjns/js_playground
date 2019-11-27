@@ -6,14 +6,14 @@ export default class CustomElementBase extends HTMLElement {
         let shadowRoot = rootNode.attachShadow({mode: 'open'});
         
         let rootNodeStyleElement = this._createStyleElementFromCssString(`
-            div {
-                height: 100%;
-                width: 100%;
-                display: grid;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;                
-            }
+        #rootElement {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;                
+        }
         `);
 
         let shadowRootStyleElement = this._createStyleElementFromCssString(`
@@ -26,9 +26,9 @@ export default class CustomElementBase extends HTMLElement {
             box-sizing: border-box;                
         }
         `);
-        shadowRoot.prepend(shadowRootStyleElement);
 
         rootNode.append(rootNodeStyleElement);
+        shadowRoot.prepend(shadowRootStyleElement);
         
         if (this.onConnected) {
             let customElementCssString = this.onConnected(shadowRoot);
