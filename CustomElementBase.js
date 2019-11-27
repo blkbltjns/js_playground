@@ -27,6 +27,12 @@ export default class CustomElementBase extends HTMLElement {
         this.append(rootNode);
     }
 
+    disconnectedCallback() {
+        if (this.onDisconnected) {
+            this.onDisconnected(rootDiv);
+        }
+    }
+
     _createShadowRootStyleElement() {
         return this._createStyleElementFromCssString(`
         :root * {
@@ -51,12 +57,6 @@ export default class CustomElementBase extends HTMLElement {
             box-sizing: border-box;                
         }
         `);
-    }
-
-    disconnectedCallback() {
-        if (this.onDisconnected) {
-            this.onDisconnected(rootDiv);
-        }
     }
 
     _createStyleElementFromCssString(cssString) {
