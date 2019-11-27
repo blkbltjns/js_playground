@@ -9,7 +9,7 @@ export default class InnerBottomElement extends CustomElementBase {
 
         return `
             :host {
-                background: blue;
+                background: var(--main-bg-color);
                 grid-auto-flow: column;
             }
         `;

@@ -1,3 +1,5 @@
+import Program from './Program.js';
+
 export default class CustomElementBase extends HTMLElement {
     connectedCallback() {
         let rootNode = document.createElement('div');
@@ -7,13 +9,15 @@ export default class CustomElementBase extends HTMLElement {
 
         let shadowRoot = rootNode.attachShadow({mode: 'open'});
         let shadowRootStyleElement = this._createShadowRootStyleElement();        
-        shadowRoot.prepend(shadowRootStyleElement);
+        shadowRoot.append(shadowRootStyleElement);
         
+
+
         if (this.onConnected) {
             let customElementCssString = this.onConnected(shadowRoot);
             if (customElementCssString) {              
                 if (customElementCssString.endsWith('.css')) {
-                    let cssFileLink = this._createCssFileLinkFromCssString(customElementCssString)
+                    let cssFileLink = this._createCssFileLinkFromCssFilePath(customElementCssString)
                     shadowRoot.prepend(cssFileLink);
                 }
                 else {
@@ -22,6 +26,9 @@ export default class CustomElementBase extends HTMLElement {
                 }                
             }            
         }
+
+        let shadowRootThemeCssFileLink = this._createCssFileLinkFromCssFilePath(Program.cssThemePath);
+        shadowRoot.prepend(shadowRootThemeCssFileLink);
 
         // append the rootNode last so that style sheets are all in place before trying to render
         this.append(rootNode);
@@ -65,11 +72,11 @@ export default class CustomElementBase extends HTMLElement {
         return styleElement;
     }
 
-    _createCssFileLinkFromCssString(cssString) {
+    _createCssFileLinkFromCssFilePath(cssFilePath) {
         let cssFileLink = document.createElement('link');
         cssFileLink.rel = "stylesheet";
         cssFileLink.type="text/css";
-        cssFileLink.href = cssString;
+        cssFileLink.href = cssFilePath;
         return cssFileLink;
     }
 }

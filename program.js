@@ -1,5 +1,9 @@
 export default class Program {
-    takeOver() {
+
+    static cssThemePath;
+
+    static takeOver(outerElementClass, cssThemePath) {           
+        Program.cssThemePath = cssThemePath;
         
         document.createCustomElement = (tag, attributes) => {
             let tagName = tag.name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
@@ -22,6 +26,10 @@ export default class Program {
             }
         `
         document.head.appendChild(style);
+
+        let newOuterElement = document.createCustomElement(outerElementClass);
+        document.body.innerHTML = '';
+        document.body.appendChild(newOuterElement);
     }
 
 }

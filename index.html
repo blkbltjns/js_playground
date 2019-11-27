@@ -1,19 +1,16 @@
 <html>    
     <body>
-        <link rel='stylesheet' type='text/css' href='./theme.css'>
-
         Loading!!!
         <script type="module">
 
-            import Program from './program.js';
-            import OuterElement from './outerElement.js';
+            import Program from '/Program.js';
+            import OuterElement from '/outerElement.js';
+           
+            Program.takeOver(OuterElement, '/theme.css');
 
-            let program = new Program();
-            program.takeOver();
-
-            let newOuterElement = document.createCustomElement(OuterElement);
-            document.body.innerHTML = '';
-            document.body.appendChild(newOuterElement);
+            // let newOuterElement = document.createCustomElement(OuterElement);
+            // document.body.innerHTML = '';
+            // document.body.appendChild(newOuterElement);
             
         </script>
     </body>
