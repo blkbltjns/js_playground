@@ -1,3 +1,4 @@
-:host *, :root * {
+* {
     --main-bg-color: orange;
+    --secondary-bg-color: grey;
 }

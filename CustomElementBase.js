@@ -48,7 +48,8 @@ export default class CustomElementBase extends HTMLElement {
             display: grid;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;                
+            box-sizing: border-box;
+            grid-auto-columns: 1fr;            
         }
         `);
     }
