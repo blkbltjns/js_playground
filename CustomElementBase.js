@@ -16,6 +16,18 @@ export default class CustomElementBase extends HTMLElement {
             }
         `);
 
+        let shadowRootStyleElement = this._createStyleElementFromCssString(`
+        div {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;                
+        }
+        `);
+        shadowRoot.prepend(shadowRootStyleElement);
+
         rootNode.append(rootNodeStyleElement);
         
         if (this.onConnected) {
