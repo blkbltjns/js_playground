@@ -11,8 +11,7 @@ export default class CustomElementBase extends HTMLElement {
         
         if (this.onConnected) {
             let customElementCssString = this.onConnected(shadowRoot);
-            if (customElementCssString) {
-                
+            if (customElementCssString) {              
                 if (customElementCssString.endsWith('.css')) {
                     let cssFileLink = this._createCssFileLinkFromCssString(customElementCssString)
                     shadowRoot.prepend(cssFileLink);
@@ -24,6 +23,7 @@ export default class CustomElementBase extends HTMLElement {
             }            
         }
 
+        // append the rootNode last so that style sheets are all in place before trying to render
         this.append(rootNode);
     }
 
