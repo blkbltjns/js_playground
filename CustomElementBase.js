@@ -17,7 +17,7 @@ export default class CustomElementBase extends HTMLElement {
         `);
 
         let shadowRootStyleElement = this._createStyleElementFromCssString(`
-        div {
+        :root * {
             height: 100%;
             width: 100%;
             display: grid;
