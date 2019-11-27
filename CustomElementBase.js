@@ -2,32 +2,11 @@ export default class CustomElementBase extends HTMLElement {
     connectedCallback() {
         let rootNode = document.createElement('div');
         rootNode.id = 'rootElement';
+        let rootNodeStyleElement = this._createRootNodeStyleElement();
+        rootNode.append(rootNodeStyleElement);
 
         let shadowRoot = rootNode.attachShadow({mode: 'open'});
-        
-        let rootNodeStyleElement = this._createStyleElementFromCssString(`
-        #rootElement {
-            height: 100%;
-            width: 100%;
-            display: grid;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;                
-        }
-        `);
-
-        let shadowRootStyleElement = this._createStyleElementFromCssString(`
-        :root * {
-            height: 100%;
-            width: 100%;
-            display: grid;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;                
-        }
-        `);
-
-        rootNode.append(rootNodeStyleElement);
+        let shadowRootStyleElement = this._createShadowRootStyleElement();        
         shadowRoot.prepend(shadowRootStyleElement);
         
         if (this.onConnected) {
@@ -46,6 +25,32 @@ export default class CustomElementBase extends HTMLElement {
         }
 
         this.append(rootNode);
+    }
+
+    _createShadowRootStyleElement() {
+        return this._createStyleElementFromCssString(`
+        :root * {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;                
+        }
+        `);
+    }
+
+    _createRootNodeStyleElement() {
+        return this._createStyleElementFromCssString(`
+        #rootElement {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;                
+        }
+        `);
     }
 
     disconnectedCallback() {
