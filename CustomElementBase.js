@@ -41,8 +41,8 @@ export default class CustomElementBase extends HTMLElement {
             max-height: 100%;
             max-width: 100%;        
             display: grid;
-            grid-auto-rows: minmax(min-content, 1fr);
-            grid-auto-columns: minmax(min-content, 1fr);
+            grid-auto-rows: minmax(1fr, 1fr);
+            grid-auto-columns: minmax(1fr, 1fr);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
