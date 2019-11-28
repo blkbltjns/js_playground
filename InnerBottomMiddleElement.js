@@ -18,8 +18,7 @@ export default class InnerBottomMiddleElement extends CustomElementBase {
 
         return `
             :host {
-                background: orange;                
-                grid-auto-rows: minmax(min-content, min-content);                
+                background: orange;                                
             }
         `
     }

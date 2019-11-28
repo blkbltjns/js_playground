@@ -3,11 +3,10 @@ import Program from './Program.js';
 export default class CustomElementBase extends HTMLElement {
     connectedCallback() {
 
-        let shadowRoot = this.attachShadow({mode: 'open'});
-        let shadowRootStyleElement = this._createShadowRootStyleElement();        
-        let hostStyleElement = this._createHostStyleElement();
+        let shadowRoot = this.attachShadow({mode: 'open'});       
+        let shadowRootStyleElement = this._createShadowRootStyleElement();
 
-        shadowRoot.append(hostStyleElement);
+        shadowRoot.append(shadowRootStyleElement);
 
         if (this.onConnected) {
             let customElementCssString = this.onConnected(shadowRoot);
@@ -35,29 +34,7 @@ export default class CustomElementBase extends HTMLElement {
 
     _createShadowRootStyleElement() {
         return this._createStyleElementFromCssString(`
-        :root * {
-            height: 100%;
-            width: 100%;
-            max-height: 100%;
-            max-width: 100%;        
-            display: grid;
-            grid-auto-rows: minmax(1fr, 1fr);
-            grid-auto-columns: minmax(1fr, 1fr);
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow: auto;              
-        }
-        `);
-    }
-
-    _createHostStyleElement() {
-        return this._createStyleElementFromCssString(`
         :host {
-            height: 100%;
-            width: 100%;
-            max-height: 100%;
-            max-width: 100%;       
             display: grid;
             grid-auto-rows: minmax(min-content, 1fr);
             grid-auto-columns: minmax(min-content, 1fr);
