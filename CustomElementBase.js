@@ -2,36 +2,29 @@ import Program from './Program.js';
 
 export default class CustomElementBase extends HTMLElement {
     connectedCallback() {
-        let rootNode = document.createElement('div');
-        rootNode.id = 'rootElement';
-        let rootNodeStyleElement = this._createRootNodeStyleElement();
-        rootNode.append(rootNodeStyleElement);
 
-        let shadowRoot = rootNode.attachShadow({mode: 'open'});
+        let shadowRoot = this.attachShadow({mode: 'open'});
         let shadowRootStyleElement = this._createShadowRootStyleElement();        
-        shadowRoot.append(shadowRootStyleElement);
-        
+        let hostStyleElement = this._createHostStyleElement();
 
+        shadowRoot.append(hostStyleElement);
 
         if (this.onConnected) {
             let customElementCssString = this.onConnected(shadowRoot);
             if (customElementCssString) {              
                 if (customElementCssString.endsWith('.css')) {
                     let cssFileLink = this._createCssFileLinkFromCssFilePath(customElementCssString)
-                    shadowRoot.prepend(cssFileLink);
+                    shadowRoot.append(cssFileLink);
                 }
                 else {
                     let customElementStyle = this._createStyleElementFromCssString(customElementCssString);
-                    shadowRoot.prepend(customElementStyle);
+                    shadowRoot.append(customElementStyle);
                 }                
             }            
         }
 
         let shadowRootThemeCssFileLink = this._createCssFileLinkFromCssFilePath(Program.cssThemePath);
         shadowRoot.prepend(shadowRootThemeCssFileLink);
-
-        // append the rootNode last so that style sheets are all in place before trying to render
-        this.append(rootNode);
     }
 
     disconnectedCallback() {
@@ -45,24 +38,33 @@ export default class CustomElementBase extends HTMLElement {
         :root * {
             height: 100%;
             width: 100%;
+            max-height: 100%;
+            max-width: 100%;        
             display: grid;
+            grid-auto-rows: minmax(min-content, 1fr);
+            grid-auto-columns: minmax(min-content, 1fr);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            grid-auto-columns: 1fr;            
+            overflow: auto;              
         }
         `);
     }
 
-    _createRootNodeStyleElement() {
+    _createHostStyleElement() {
         return this._createStyleElementFromCssString(`
-        #rootElement {
+        :host {
             height: 100%;
             width: 100%;
+            max-height: 100%;
+            max-width: 100%;       
             display: grid;
+            grid-auto-rows: minmax(min-content, 1fr);
+            grid-auto-columns: minmax(min-content, 1fr);
             margin: 0;
             padding: 0;
-            box-sizing: border-box;                
+            box-sizing: border-box;    
+            overflow: auto;        
         }
         `);
     }

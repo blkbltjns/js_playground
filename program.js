@@ -19,10 +19,14 @@ export default class Program {
             html, body {
                 height: 100%;
                 width: 100%;
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
+                max-height: 100%;
+                max-width: 100%;
+                
                 display: grid;
+                grid-auto-columns: minmax(min-content, 1fr);
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
         `
         document.head.appendChild(style);
