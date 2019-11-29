@@ -2,7 +2,6 @@ import Program from './Program.js';
 
 export default class CustomElementBase extends HTMLElement {
     connectedCallback() {
-
         let shadowRoot = this.attachShadow({mode: 'open'});       
         let shadowRootStyleElement = this._createShadowRootStyleElement();
 
@@ -21,9 +20,6 @@ export default class CustomElementBase extends HTMLElement {
                 }                
             }            
         }
-
-        let shadowRootThemeCssFileLink = this._createCssFileLinkFromCssFilePath(Program.cssThemePath);
-        shadowRoot.prepend(shadowRootThemeCssFileLink);
     }
 
     disconnectedCallback() {

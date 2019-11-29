@@ -3,8 +3,6 @@ export default class Program {
     static cssThemePath;
 
     static takeOver(outerElementClass, cssThemePath) {           
-        Program.cssThemePath = cssThemePath;
-        
         document.createCustomElement = (tag, attributes) => {
             let tagName = tag.name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
             let existingCustomElement = window.customElements.get(tagName);
