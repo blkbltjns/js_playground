@@ -3,15 +3,18 @@ export default class Program {
     static cssThemePath;
 
     static takeOver(outerElementClass, cssThemePath) {           
-        document.createCustomElement = (tag, attributes) => {
-            let tagName = tag.name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
-            let existingCustomElement = window.customElements.get(tagName);
-            if (!existingCustomElement) {
-                window.customElements.define(tagName, tag);
-            }
-            return document.createElement(tagName, attributes);
-        };
+        Program._createCreateCustomElementMethod();
+        Program._addHtmlAndBodyStyle();
+        Program._addOuterElementToBody(outerElementClass);
+    }
 
+    static _addOuterElementToBody(outerElementClass) {
+        let newOuterElement = document.createCustomElement(outerElementClass);
+        document.body.innerHTML = '';
+        document.body.appendChild(newOuterElement);
+    }
+
+    static _addHtmlAndBodyStyle() {
         let style = document.createElement('style');
         style.textContent = `
             html, body {
@@ -26,12 +29,18 @@ export default class Program {
                 padding: 0;
                 box-sizing: border-box;
             }
-        `
+        `;
         document.head.appendChild(style);
-
-        let newOuterElement = document.createCustomElement(outerElementClass);
-        document.body.innerHTML = '';
-        document.body.appendChild(newOuterElement);
     }
 
+    static _createCreateCustomElementMethod() {
+        document.createCustomElement = (tag, attributes) => {
+            let tagName = tag.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            let existingCustomElement = window.customElements.get(tagName);
+            if (!existingCustomElement) {
+                window.customElements.define(tagName, tag);
+            }
+            return document.createElement(tagName, attributes);
+        };
+    }
 }
