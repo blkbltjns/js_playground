@@ -1,7 +1,5 @@
 export default class Program {
 
-    static cssThemePath;
-
     static takeOver(outerElementClass, cssThemePath) {           
         Program._createCreateCustomElementMethod();
         Program._addHtmlAndBodyStyle();
@@ -43,4 +41,5 @@ export default class Program {
             return document.createElement(tagName, attributes);
         };
     }
+    
 }
