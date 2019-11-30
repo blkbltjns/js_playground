@@ -10,7 +10,7 @@ export default class CustomElementBase extends HTMLElement {
 
         if (this.onConnected) {
             let customElementCssString = this.onConnected(shadowRoot);
-            if (customElementCssString) {              
+            if (customElementCssString) {                              
                 if (customElementCssString.endsWith('.css')) {
                     let cssFileLink = this._createCssFileLinkFromCssFilePath(customElementCssString)
                     shadowRoot.append(cssFileLink);

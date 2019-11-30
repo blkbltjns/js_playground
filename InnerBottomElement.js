@@ -1,4 +1,4 @@
-import Program from './program';
+import Program from './Program.js';
 import CustomElementBase from "./CustomElementBase.js";
 import InnerBottomLeftElement from "./InnerBottomLeftElement.js";
 import InnerBottomMiddleElement from "./InnerBottomMiddleElement.js";
