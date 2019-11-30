@@ -1,6 +1,7 @@
 import Program from './Program.js';
 
 export default class CustomElementBase extends HTMLElement {
+
     connectedCallback() {
         let shadowRoot = this.attachShadow({mode: 'open'});       
         let shadowRootStyleElement = this._createShadowRootStyleElement();
@@ -22,12 +23,22 @@ export default class CustomElementBase extends HTMLElement {
         }
     }
 
-    disconnectedCallback() {
-        if (this.onDisconnected) {
-            this.onDisconnected(rootDiv);
-        }
-    }
+    /** 
+     * @abstract 
+     * @param {ParentNode} rootElement
+     * @returns {string | void}
+     * @private
+    */
+    onConnected(rootElement) { };
 
+    /**
+     * @param {ShadowRoot} rootElement 
+     */
+    onDisconnected(rootElement) { }
+
+    /**
+     * @returns {HTMLStyleElement}
+     */
     _createShadowRootStyleElement() {
         return this._createStyleElementFromCssString(`
         :host {
@@ -42,12 +53,20 @@ export default class CustomElementBase extends HTMLElement {
         `);
     }
 
+    /**
+    * @param {string} cssString
+    * @returns {HTMLStyleElement}
+    */
     _createStyleElementFromCssString(cssString) {
         let styleElement = document.createElement('style');
         styleElement.textContent = cssString;
         return styleElement;
     }
 
+    /**
+     * @param {string} cssFilePath 
+     * @returns {HTMLLinkElement}
+     */
     _createCssFileLinkFromCssFilePath(cssFilePath) {
         let cssFileLink = document.createElement('link');
         cssFileLink.rel = "stylesheet";

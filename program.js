@@ -1,13 +1,12 @@
 export default class Program {
 
     static takeOver(outerElementClass, cssThemePath) {           
-        Program._createCreateCustomElementMethod();
         Program._addHtmlAndBodyStyle();
         Program._addOuterElementToBody(outerElementClass);
     }
 
     static _addOuterElementToBody(outerElementClass) {
-        let newOuterElement = document.createCustomElement(outerElementClass);
+        let newOuterElement = this.createCustomElement(outerElementClass);
         document.body.innerHTML = '';
         document.body.appendChild(newOuterElement);
     }
@@ -31,15 +30,13 @@ export default class Program {
         document.head.appendChild(style);
     }
 
-    static _createCreateCustomElementMethod() {
-        document.createCustomElement = (tag, attributes) => {
-            let tagName = tag.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-            let existingCustomElement = window.customElements.get(tagName);
-            if (!existingCustomElement) {
-                window.customElements.define(tagName, tag);
-            }
-            return document.createElement(tagName, attributes);
-        };
+    static createCustomElement(tag, attributes) {
+        let tagName = tag.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        let existingCustomElement = window.customElements.get(tagName);
+        if (!existingCustomElement) {
+            window.customElements.define(tagName, tag);
+        }
+        return document.createElement(tagName, attributes);
     }
     
 }
