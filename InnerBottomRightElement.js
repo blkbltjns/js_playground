@@ -1,8 +1,12 @@
 import CustomElementBase from "./CustomElementBase.js";
 
 export default class InnerBottomRightElement extends CustomElementBase {
-    onConnected(rootElement) {
-        rootElement.append(`InnerBottomRightElement`);
+
+    /**
+     * @param {ParentNode} rootNode
+    */
+    onConnected(rootNode) {
+        rootNode.append(`InnerBottomRightElement`);
 
         return `
             :host {

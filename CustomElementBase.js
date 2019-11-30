@@ -25,16 +25,16 @@ export default class CustomElementBase extends HTMLElement {
 
     /** 
      * @abstract 
-     * @param {ParentNode} rootElement
+     * @param {ParentNode} rootNode
      * @returns {string | void}
      * @private
     */
-    onConnected(rootElement) { };
+    onConnected(rootNode) { };
 
     /**
-     * @param {ShadowRoot} rootElement 
+     * @param {ParentNode} rootNode 
      */
-    onDisconnected(rootElement) { }
+    onDisconnected(rootNode) { }
 
     /**
      * @returns {HTMLStyleElement}

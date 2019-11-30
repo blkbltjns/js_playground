@@ -10,18 +10,17 @@ import InnerBottomRightElement from "./InnerBottomRightElement.js";
 export default class InnerBottomElement extends CustomElementBase {
 
     /**
-     * @override
-     * @inheritdoc
+     * @param {ParentNode} rootNode
      */
-    onConnected(rootElement) {
+    onConnected(rootNode) {
         let divElement = document.createElement('div');
         divElement.innerText = 'therandomdiv';
         divElement.id = 'therandomdiv';
-        rootElement.append(divElement);
+        rootNode.append(divElement);
 
-        rootElement.append(Program.createCustomElement(InnerBottomLeftElement));
-        rootElement.append(Program.createCustomElement(InnerBottomMiddleElement));
-        rootElement.append(Program.createCustomElement(InnerBottomRightElement));
+        rootNode.append(Program.createCustomElement(InnerBottomLeftElement));
+        rootNode.append(Program.createCustomElement(InnerBottomMiddleElement));
+        rootNode.append(Program.createCustomElement(InnerBottomRightElement));
 
         return `
             :host {

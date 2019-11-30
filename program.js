@@ -2,7 +2,7 @@ export default class Program {
 
     static takeOver(outerElementClass, cssThemePath) {           
         Program._addHtmlAndBodyStyle();
-        Program._addOuterElementToBody(outerElementClass);
+        Program._addOuterElementToBody(outerElementClass);       )
     }
 
     static _addOuterElementToBody(outerElementClass) {

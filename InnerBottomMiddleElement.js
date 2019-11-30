@@ -1,9 +1,13 @@
 import CustomElementBase from "./CustomElementBase.js";
 
 export default class InnerBottomMiddleElement extends CustomElementBase {
-    onConnected(rootElement) {
+
+    /**
+     * @param {ParentNode} rootNode      
+     */
+    onConnected(rootNode) {
         let table = document.createElement('div');
-        table.style.gridAutoRows = 'minmax(min-content, min-content);';
+        table.style.gridAutoRows = 'minmax(max-content, max-content);';
         table.style.height = '0';
         table.style.gridAutoFlow = 'row';
 
@@ -14,7 +18,7 @@ export default class InnerBottomMiddleElement extends CustomElementBase {
             table.append(row);
         }
 
-        rootElement.append(table);
+        rootNode.append(table);
 
         return `
             :host {
