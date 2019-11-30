@@ -5,28 +5,15 @@ export default class CustomElementBase extends HTMLElement {
     connectedCallback() {
         let shadowRoot = this.attachShadow({mode: 'open'});       
         let shadowRootStyleElement = this._createShadowRootStyleElement();
-
-        shadowRoot.append(shadowRootStyleElement);
-
         if (this.onConnected) {
-            let customElementCssString = this.onConnected(shadowRoot);
-            if (customElementCssString) {                              
-                if (customElementCssString.endsWith('.css')) {
-                    let cssFileLink = this._createCssFileLinkFromCssFilePath(customElementCssString)
-                    shadowRoot.append(cssFileLink);
-                }
-                else {
-                    let customElementStyle = this._createStyleElementFromCssString(customElementCssString);
-                    shadowRoot.append(customElementStyle);
-                }                
-            }            
+            this.onConnected(shadowRoot);
         }
+        shadowRoot.append(shadowRootStyleElement);
     }
 
     /** 
      * @abstract 
      * @param {ParentNode} rootNode
-     * @returns {string | void}
      * @private
     */
     onConnected(rootNode) { };
@@ -37,10 +24,20 @@ export default class CustomElementBase extends HTMLElement {
     onDisconnected(rootNode) { }
 
     /**
+    * @param {string} cssString
+    * @returns {HTMLStyleElement}
+    */    
+    createStyleElement(cssString) {
+        let styleElement = document.createElement('style');
+        styleElement.textContent = cssString;
+    return styleElement;
+    }
+
+    /**
      * @returns {HTMLStyleElement}
      */
     _createShadowRootStyleElement() {
-        return this._createStyleElementFromCssString(`
+        return this.createStyleElement(`
         :host {
             display: grid;
             grid-auto-rows: minmax(min-content, 1fr);
@@ -54,20 +51,10 @@ export default class CustomElementBase extends HTMLElement {
     }
 
     /**
-    * @param {string} cssString
-    * @returns {HTMLStyleElement}
-    */
-    _createStyleElementFromCssString(cssString) {
-        let styleElement = document.createElement('style');
-        styleElement.textContent = cssString;
-        return styleElement;
-    }
-
-    /**
      * @param {string} cssFilePath 
      * @returns {HTMLLinkElement}
      */
-    _createCssFileLinkFromCssFilePath(cssFilePath) {
+    createCssFileLinkElement(cssFilePath) {
         let cssFileLink = document.createElement('link');
         cssFileLink.rel = "stylesheet";
         cssFileLink.type="text/css";

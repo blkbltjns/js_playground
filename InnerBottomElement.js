@@ -13,16 +13,7 @@ export default class InnerBottomElement extends CustomElementBase {
      * @param {ParentNode} rootNode
      */
     onConnected(rootNode) {
-        let divElement = document.createElement('div');
-        divElement.innerText = 'therandomdiv';
-        divElement.id = 'therandomdiv';
-        rootNode.append(divElement);
-
-        rootNode.append(Program.createCustomElement(InnerBottomLeftElement));
-        rootNode.append(Program.createCustomElement(InnerBottomMiddleElement));
-        rootNode.append(Program.createCustomElement(InnerBottomRightElement));
-
-        return `
+        const styleElement = this.createStyleElement(`
             :host {
                 background: var(--main-bg-color);                
                 grid-auto-flow: column;
@@ -31,6 +22,16 @@ export default class InnerBottomElement extends CustomElementBase {
             #therandomdiv {
                 background: var(--secondary-bg-color);
             }
-        `;
+        `);
+        rootNode.append(styleElement);
+
+        let divElement = document.createElement('div');
+        divElement.innerText = 'therandomdiv';
+        divElement.id = 'therandomdiv';
+        rootNode.append(divElement);
+
+        rootNode.append(Program.createCustomElement(InnerBottomLeftElement));
+        rootNode.append(Program.createCustomElement(InnerBottomMiddleElement));
+        rootNode.append(Program.createCustomElement(InnerBottomRightElement));
     }
 }

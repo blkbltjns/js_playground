@@ -6,11 +6,14 @@ export default class InnerBottomLeftElement extends CustomElementBase {
      * @param {ParentNode} rootNode
     */
     onConnected(rootNode) {
-        rootNode.append(`InnerBottomLeftElement`);
-        return `
+        const styleElement = this.createStyleElement(`
             :host {
                 background: pink;
             }
-        `
+        `)
+        rootNode.append(styleElement);
+
+        rootNode.append(`InnerBottomLeftElement`);
+
     }
 }
