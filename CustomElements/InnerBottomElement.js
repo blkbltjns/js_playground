@@ -13,7 +13,8 @@ export default class InnerBottomElement extends CustomElementBase {
      * @param {ParentNode} rootNode
      */
     onConnected(rootNode) {
-        const styleElement = this.createStyleElement(`
+        const styleElement =
+        this.createStyleElement(`
             :host {
                 background: var(--main-bg-color);                
                 grid-auto-flow: column;
