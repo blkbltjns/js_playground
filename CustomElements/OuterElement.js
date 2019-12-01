@@ -1,4 +1,4 @@
-import Program from './Program.js';
+import Program from '../Program.js';
 import CustomElementBase from './CustomElementBase.js';
 import MikesInnerElementOne from './InnerTopElement.js';
 import MikesInnerElementTwo from './InnerBottomElement.js';
