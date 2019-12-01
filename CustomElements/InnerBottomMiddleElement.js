@@ -1,4 +1,6 @@
 import CustomElementBase from "./CustomElementBase.js";
+import RowElement from "./RowElement.js";
+import Program from "../Program.js";
 
 export default class InnerBottomMiddleElement extends CustomElementBase {
 
@@ -8,23 +10,22 @@ export default class InnerBottomMiddleElement extends CustomElementBase {
     onConnected(rootNode) {
         const styleElement = this.createStyleElement(`
             :host {
-                background: orange;                                
+                background: var(--main-bd-color);                                
             }
         `);
         rootNode.append(styleElement);
 
-        let table = document.createElement('div');
-        table.style.gridAutoRows = 'minmax(max-content, max-content);';
-        table.style.height = '0';
-        table.style.gridAutoFlow = 'row';
+        let tableDiv = document.createElement('div');
+        tableDiv.style.gridAutoRows = 'minmax(max-content, max-content);';
+        tableDiv.style.height = '0';
+        tableDiv.style.gridAutoFlow = 'row';
 
-        for (let i = 0; i < 10000; i++) {
-            let row = document.createElement('div');
-            row.className = 'row';
-            row.innerText = `row number ${i}`;
-            table.append(row);
+        for (let i = 0; i < 1000; i++) {
+            let row = Program.createCustomElement(RowElement);
+            row.row = i
+            tableDiv.append(row);
         }
 
-        rootNode.append(table);
+        rootNode.append(tableDiv);
     }
 }

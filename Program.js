@@ -1,3 +1,5 @@
+import CustomElementBase from "./CustomElements/CustomElementBase";
+
 export default class Program {
 
     static takeOver(outerElementClass) {           
@@ -6,13 +8,13 @@ export default class Program {
     }
 
     static _addOuterElementToBody(outerElementClass) {
-        let newOuterElement = this.createCustomElement(outerElementClass);
+        const newOuterElement = this.createCustomElement(outerElementClass);
         document.body.innerHTML = '';
         document.body.appendChild(newOuterElement);
     }
 
     static _addHtmlAndBodyStyle() {
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.textContent = `
             html, body {
                 height: 100%;
@@ -30,13 +32,19 @@ export default class Program {
         document.head.appendChild(style);
     }
 
-    static createCustomElement(tag, attributes) {
-        let tagName = tag.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        let existingCustomElement = window.customElements.get(tagName);
+    /**
+     * @template {CustomElementBase} T
+     * @param {new() => T} className
+     * @returns {T}
+     **/
+    static createCustomElement(className) {
+        const tagName = className.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        const existingCustomElement = window.customElements.get(tagName);
         if (!existingCustomElement) {
-            window.customElements.define(tagName, tag);
+            window.customElements.define(tagName, className);
         }
-        return document.createElement(tagName, attributes);
-    }
-    
+
+        const toReturn = document.createElement(tagName);
+        return /** @type {T} */(toReturn);
+    }    
 }
