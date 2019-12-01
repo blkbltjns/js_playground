@@ -1,4 +1,4 @@
-import CustomElementBase from "./CustomElements/CustomElementBase";
+import CustomElementBase from "./CustomElements/CustomElementBase.js";
 
 export default class Program {
 
@@ -48,7 +48,11 @@ export default class Program {
         return /** @type {T} */(toReturn);
     }    
 
+    /**
+     * @param {string} toConvert 
+     * @returns {string}
+     */
     static _convertToHyphenCase(toConvert) {
-        return toConvert.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        return toConvert.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
     }
 }

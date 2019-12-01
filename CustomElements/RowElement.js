@@ -17,7 +17,7 @@ export default class RowElement extends CustomElementBase {
      */
     onConnected(rootNode) {
         const styleElement = this.createStyleElement(`
-            root: {
+            div {
                 background: yellow;
             }
         `);
