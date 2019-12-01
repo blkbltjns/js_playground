@@ -34,17 +34,21 @@ export default class Program {
 
     /**
      * @template {CustomElementBase} T
-     * @param {new() => T} className
+     * @param {new() => T} classConstructor
      * @returns {T}
      **/
-    static createCustomElement(className) {
-        const tagName = className.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    static createCustomElement(classConstructor) {
+        const tagName = Program._convertToHyphenCase(classConstructor.name);
         const existingCustomElement = window.customElements.get(tagName);
         if (!existingCustomElement) {
-            window.customElements.define(tagName, className);
+            window.customElements.define(tagName, classConstructor);
         }
 
         const toReturn = document.createElement(tagName);
         return /** @type {T} */(toReturn);
     }    
+
+    static _convertToHyphenCase(toConvert) {
+        return toConvert.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    }
 }
