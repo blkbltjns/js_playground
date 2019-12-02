@@ -10,10 +10,9 @@ import InnerBottomRightElement from "./InnerBottomRightElement.js";
 export default class InnerBottomElement extends CustomElementBase {
 
     /**
-     * @override
-     * @inheritdoc
+     * @param {ParentNode} rootElement 
      */
-    onConnected(rootElement) {
+    onConnected(rootElement) {        
         let divElement = document.createElement('div');
         divElement.innerText = 'therandomdiv';
         divElement.id = 'therandomdiv';
